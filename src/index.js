@@ -25,7 +25,16 @@ function capitalizeFirstLetter(str) {
     return str[0].toUpperCase() + str.slice(1);
 }
 
-let city = prompt("Enter a city").trim().toLowerCase();
+function formatString(str) {
+    if (str.length === 0) { return "";}
+    else {
+        return str.trim().toLowerCase();
+    }
+ 
+}
+
+let city = formatString(prompt("Enter a city"));
+
 let cityDataExist = false;
 for (let prop in weather) { 
     if (city === prop) { 
