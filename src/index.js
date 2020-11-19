@@ -26,7 +26,7 @@ function capitalizeFirstLetter(str) {
 }
 
 function formatString(str) {
-    if (str.length === 0) { return "";}
+    if (str === null || str.length === 0) { return "";}
     else {
         return str.trim().toLowerCase();
     }
