@@ -1,48 +1,58 @@
-let weather = {
-  "paris": {
-    temp: 19.7,
-    humidity: 80
-  },
-  "tokyo": {
-    temp: 17.3,
-    humidity: 50
-  },
-  "lisbon": {
-    temp: 30.2,
-    humidity: 20
-  },
-  "san francisco": {
-    temp: 20.9,
-    humidity: 100
-  },
-  "moscow": {
-    temp: -5,
-    humidity: 20
-  }
-};
+// Feature One: display the current date and time 
 
-function capitalizeFirstLetter(str) {
-    return str[0].toUpperCase() + str.slice(1);
-}
+let currentTime = document.querySelector("#current-time");
+let now = new Date();
+days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+currentTime.innerHTML = `${days[now.getDay()]} ${now.getHours()}:${formatMinutes(now.getMinutes())}`;
 
-function formatString(str) {
-    if (str === null || str.length === 0) { return "";}
-    else {
-        return str.trim().toLowerCase();
+function formatMinutes(d) {
+    if (d < 10) {
+        return "0" + d;
+    } else {
+        return `${d}`;
     }
- 
+    
 }
 
-let city = formatString(prompt("Enter a city"));
+//Add a search engine, when searching for a city, display the city name on the page after the user submits the form
 
-let cityDataExist = false;
-for (let prop in weather) { 
-    if (city === prop) { 
-        cityDataExist = true;
-        alert(`It is currently ${weather[prop].temp}°C (${((weather[prop].temp * 9) / 5) + 32}°F) in ${capitalizeFirstLetter(city)} with a humidity of ${weather[prop].humidity}%.`);
-    }
+function changeCity(event) {
+    event.preventDefault();
+    let cityInput = document.querySelector("#city-input");
+    let cityName = document.querySelector("#city-name");
+    cityName.innerHTML = cityInput.value;
 }
 
-if (!cityDataExist) { 
-    alert(`Sorry, we don't know the weather for this city, try going to https://www.google.com/search?q=weather+${city}`);
+let cityForm = document.querySelector("#city-form");
+cityForm.querySelector("submit", changeCity)
+
+
+//Add a link to convert the temperature from Celsius to Fahrenheit. When clicking on it, it should convert the temperature to Fahrenheit.
+let fahrenheitSwitch = document.querySelector("#fahrenheit-switch");
+fahrenheitSwitch.addEventListener("click", function (event) {
+    event.preventDefault();
+    let temperature = document.querySelector(".temperature");
+    temperature.innerHTML = convert2Fahrenheit(parseInt(temperature.innerHTML));
+})
+
+function convert2Fahrenheit(degree) {
+    return Math.round(((degree * 9) / 5) + 32);
 }
+
+//Change the day display in the forcast according to current day
+daysAbbrev = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+let forcastFirstDay = document.querySelector("#forcast-first-day");
+forcastFirstDay.innerHTML = daysAbbrev[now.getDay() + 1];
+
+let forcastSecondDay = document.querySelector("#forcast-second-day");
+forcastSecondDay.innerHTML = daysAbbrev[now.getDay() + 2];
+
+let forcastThirdDay = document.querySelector("#forcast-third-day");
+forcastThirdDay.innerHTML = daysAbbrev[now.getDay() + 3];
+
+let forcastFourthDay = document.querySelector("#forcast-fourth-day");
+forcastFourthDay.innerHTML = daysAbbrev[now.getDay() + 4];
+
+let forcastFifthDay = document.querySelector("#forcast-fifth-day");
+forcastFifthDay.innerHTML = daysAbbrev[now.getDay() + 5];
+

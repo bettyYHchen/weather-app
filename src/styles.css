@@ -1,5 +1,5 @@
-.city-name {
-  font-size: 40px;
+#city-name {
+  font-size: 30px;
   font-weight: bolder;
   color: #898b8a;
 }
@@ -9,18 +9,19 @@
   font-weight: bold;
   color: #4e89ae;
 }
+.unit {
+  font-size: 40px;
+  font-weight: bolder;
+  position: relative;
+  top: -40px;
+}
 
 h2 {
   color: #4e89ae;
 }
 
-h3 {
-  color: #4e89ae;
-}
-
 h4 {
-  text-align: center;
-  color: #bbbbbb;
+  color: #4e89ae;
 }
 
 h5 {
