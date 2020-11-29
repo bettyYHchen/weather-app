@@ -2,7 +2,7 @@
 
 let currentTime = document.querySelector("#current-time");
 let now = new Date();
-days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 currentTime.innerHTML = `${days[now.getDay()]} ${now.getHours()}:${formatMinutes(now.getMinutes())}`;
 
 function formatMinutes(d) {
@@ -24,7 +24,8 @@ function changeCity(event) {
 }
 
 let cityForm = document.querySelector("#city-form");
-cityForm.querySelector("submit", changeCity)
+console.log(cityForm)
+cityForm.addEventListener("submit", changeCity)
 
 
 //Add a link to convert the temperature from Celsius to Fahrenheit. When clicking on it, it should convert the temperature to Fahrenheit.
@@ -40,7 +41,7 @@ function convert2Fahrenheit(degree) {
 }
 
 //Change the day display in the forcast according to current day
-daysAbbrev = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+let daysAbbrev = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 let forcastFirstDay = document.querySelector("#forcast-first-day");
 forcastFirstDay.innerHTML = daysAbbrev[now.getDay() + 1];
 
