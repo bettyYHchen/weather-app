@@ -17,13 +17,14 @@
       src="https://kit.fontawesome.com/f03a7f47aa.js"
       crossorigin="anonymous"
     ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
 
   <body>
     <div class="container">
         <div class="weather-app">
           <div class="row">
-            <div class="col-8">
+            <div class="col-6 search-col">
               <form id="city-form" >
                 <div class="form-group" >
                   <div class="row">
@@ -39,22 +40,24 @@
                 
               </form>
             </div>
+            <div class="col-2 positioning-col">
+              <button id="position-button" type="button" class="btn btn-info">Postioning</button>
+            </div>
             <div class="col-4">
               <div id="city-name">Toronto</div>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-1"></div>
             <div class="col-4">
               <h4 id="current-time">Saturday 20:47</h4>
             </div>
-            <div class="col-3">
-              <h4><i class="fas fa-sun"></i> Sunny</h4>
+            <div class="col-4">
+              <h4 ><img  id="weather-icon" src=" http://openweathermap.org/img/wn/01d@2x.png" width=40> <span id="weather-description">Sunny</span></h4>
             </div>
             <div class="col-3">
               <h4>
-                <i class="fas fa-thermometer-three-quarters"></i> 7&deg; - 18&deg;
+                <i class="fas fa-thermometer-three-quarters"></i> <span  id="temperature-range">7&deg;~18&deg;</span>
               </h4>
             </div>
           </div>
@@ -70,8 +73,8 @@
             </div>
             <div class="col-5">
               <br />
-              <h2><i class="fas fa-wind"></i> 4.8km/h</h2>
-              <h2><i class="fas fa-tint"></i> 65%</h2>
+              <h2><i class="fas fa-wind"></i> <span  id="wind-speed">4.8km/h</span></h2>
+              <h2><i class="fas fa-tint" ></i> <span id="humidity">65%</span></h2>
             </div>
           </div>
         
@@ -81,58 +84,68 @@
 
           </div>
           <div class="col-2">
-            <h5 id="forcast-first-day">
-              Mon
-            </h5>
             <h5>
-              <i class="fas fa-sun"></i>
-            </h5>
-            <h5>
-              9&deg;-18&deg;
+              <div id="forecast-first-day">
+                Mon
+              </div>
+              <div>
+                <img  id="icon-day1" src=" http://openweathermap.org/img/wn/01d@2x.png" width=30>
+              </div>
+              <div id="temp-range-day1">
+                9&deg;-18&deg;
+              </div>
             </h5>
           </div>
           <div class="col-2">
-            <h5 id="forcast-second-day">
-              Tue
-            </h5>
             <h5>
-              <i class="fas fa-cloud"></i>
-            </h5>
-            <h5>
-              12&deg;-19&deg;
+              <div id="forecast-second-day">
+                Tue
+              </div>
+              <div>
+                <img  id="icon-day2" src=" http://openweathermap.org/img/wn/03d@2x.png" width=30>
+              </div>
+              <div id="temp-range-day2">
+                12&deg;-19&deg;
+              </div>
             </h5>
           </div>
           <div class="col-2">
-            <h5 id="forcast-third-day">
-              Wed
-            </h5>
             <h5>
-              <i class="fas fa-cloud"></i>
-            </h5>
-            <h5>
-              4&deg;-18&deg;
+              <div id="forecast-third-day">
+                Wed
+              </div>
+              <div>
+                <img  id="icon-day3" src=" http://openweathermap.org/img/wn/03d@2x.png" width=30>
+              </div>
+              <div id="temp-range-day3">
+                4&deg;-18&deg;
+              </div>
             </h5>
           </div>
           <div class="col-2">
-            <h5 id="forcast-fourth-day">
-              Thu
-            </h5>
             <h5>
-              <i class="fas fa-cloud-sun"></i>
-            </h5>
-            <h5>
-              2&deg;-9&deg;
+              <div id="forecast-fourth-day">
+                Thu
+              </div>
+              <div>
+                <img  id="icon-day4" src=" http://openweathermap.org/img/wn/02d@2x.png" width=30>
+              </div>
+              <div id="temp-range-day4">
+                2&deg;-9&deg;
+              </div>
             </h5>
           </div>
           <div class="col-2">
-            <h5 id="forcast-fifth-day">
-              Fri
-            </h5>
             <h5>
-              <i class="fas fa-cloud"></i>
-            </h5>
-            <h5>
-              1&deg;-10&deg;
+              <div id="forecast-fifth-day">
+                Fri
+              </div>
+              <div>
+                <img  id="icon-day5" src=" http://openweathermap.org/img/wn/03d@2x.png" width=30>
+              </div>
+              <div id="temp-range-day5">
+                1&deg;-10&deg;
+              </div>
             </h5>
           </div>
         </div>

@@ -2,6 +2,15 @@
   font-size: 30px;
   font-weight: bolder;
   color: #898b8a;
+  text-align: center;
+}
+
+#current-time {
+  text-align: center;
+}
+
+#search-col {
+  padding-right: 5px;
 }
 
 .large {
@@ -53,4 +62,11 @@ h5 {
   margin: 20px auto;
   border-radius: 20px;
   max-width: 600px;
+}
+
+.search-col {
+  padding-right: 0px;
+}
+.positioning-col {
+  padding-left: 0px;
 }
