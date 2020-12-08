@@ -1,2 +1,2 @@
 # weather-app
-Created with CodeSandbox
+Simple weather app to show daily weather of current location and searched city.  
