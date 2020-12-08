@@ -6,6 +6,8 @@ let now = new Date();
 let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 currentTime.innerHTML = `${days[now.getDay()]} ${now.getHours()}:${formatMinutes(now.getMinutes())}`;
 
+changeForecastDay(now);
+
 function formatMinutes(d) {
     if (d < 10) {
         return "0" + d;
@@ -15,10 +17,30 @@ function formatMinutes(d) {
     
 }
 
-// function to calculate local time
-// in a different city
-// given the city's UTC Shift in seconds from UTC
+function changeForecastDay(dateObj) { 
+    //Change the day display in the forecast according to current day
+    let daysAbbrev = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    let forecastFirstDay = document.querySelector("#forecast-first-day");
+    forecastFirstDay.innerHTML = daysAbbrev[(dateObj.getDay() + 1)%7];
+
+    let forecastSecondDay = document.querySelector("#forecast-second-day");
+    forecastSecondDay.innerHTML = daysAbbrev[(dateObj.getDay() + 2)%7];
+
+    let forecastThirdDay = document.querySelector("#forecast-third-day");
+    forecastThirdDay.innerHTML = daysAbbrev[(dateObj.getDay() + 3)%7];
+
+    let forecastFourthDay = document.querySelector("#forecast-fourth-day");
+    forecastFourthDay.innerHTML = daysAbbrev[(dateObj.getDay() + 4)%7];
+
+    let forecastFifthDay = document.querySelector("#forecast-fifth-day");
+    forecastFifthDay.innerHTML = daysAbbrev[(dateObj.getDay() + 5) % 7];
+}
+
+
 function changeTime(offset) {
+    // function to calculate local time
+    // in a different city
+    // given the city's UTC Shift in seconds from UTC
 
     // create Date object for current location
     let d = new Date();
@@ -52,22 +74,7 @@ function convert2Fahrenheit(degree) {
     return Math.round(((degree * 9) / 5) + 32);
 }
 
-//Change the day display in the forecast according to current day
-let daysAbbrev = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-let forecastFirstDay = document.querySelector("#forecast-first-day");
-forecastFirstDay.innerHTML = daysAbbrev[(now.getDay() + 1)%7];
 
-let forecastSecondDay = document.querySelector("#forecast-second-day");
-forecastSecondDay.innerHTML = daysAbbrev[(now.getDay() + 2)%7];
-
-let forecastThirdDay = document.querySelector("#forecast-third-day");
-forecastThirdDay.innerHTML = daysAbbrev[(now.getDay() + 3)%7];
-
-let forecastFourthDay = document.querySelector("#forecast-fourth-day");
-forecastFourthDay.innerHTML = daysAbbrev[(now.getDay() + 4)%7];
-
-let forecastFifthDay = document.querySelector("#forecast-fifth-day");
-forecastFifthDay.innerHTML = daysAbbrev[(now.getDay() + 5) % 7];
 
 
 
@@ -113,6 +120,7 @@ function updateCity(event) {
         let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         let now = changeTime(response.data.timezone);
         currentTime.innerHTML = `${days[now.getDay()]} ${now.getHours()}:${formatMinutes(now.getMinutes())}`;
+        changeForecastDay(now);
         //update five-day forecast
         let lat = response.data.coord.lat;
         let lon = response.data.coord.lon;
@@ -175,7 +183,7 @@ function updateCurrentLocation(event) {
         let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         let now = changeTime(response.data.timezone);
         currentTime.innerHTML = `${days[now.getDay()]} ${now.getHours()}:${formatMinutes(now.getMinutes())}`;
-        
+        changeForecastDay(now);
         // Change the city name displayed on page
         let cityName = document.querySelector("#city-name");
         cityName.innerHTML = response.data.name;

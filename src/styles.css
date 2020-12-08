@@ -64,6 +64,11 @@ h5 {
   max-width: 600px;
 }
 
+.footer {
+  position: relative;
+  left: 345px;
+}
+
 .search-col {
   padding-right: 0px;
 }
