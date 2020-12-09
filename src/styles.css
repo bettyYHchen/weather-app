@@ -56,17 +56,15 @@ h5 {
   padding-right: 5px;
 }
 
+.weather-app-wrapper {
+  max-width: 600px;
+  margin: 20px auto;
+}
+
 .weather-app {
   border: 1px solid #dadde1;
   padding: 15px;
-  margin: 20px auto;
   border-radius: 20px;
-  max-width: 600px;
-}
-
-.footer {
-  position: relative;
-  left: 345px;
 }
 
 .search-col {

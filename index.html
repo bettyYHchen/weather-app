@@ -22,26 +22,37 @@
 
   <body>
     <div class="container">
+      <div class="weather-app-wrapper">
         <div class="weather-app">
           <div class="row">
             <div class="col-6 search-col">
-              <form id="city-form" >
-                <div class="form-group" >
+              <form id="city-form">
+                <div class="form-group">
                   <div class="row">
                     <div class="col-8 form-input">
-                      <input type="search" class="form-control shadow-sm" id="city-input" placeholder="Enter the City" />
+                      <input
+                        type="search"
+                        class="form-control shadow-sm"
+                        id="city-input"
+                        placeholder="Enter the City"
+                      />
                     </div>
                     <div class="col-4 form-button">
-                      <input type="submit" name="submit" class="btn btn-light" value="search" />
-                    </div>  
-                  </div> 
+                      <input
+                        type="submit"
+                        name="submit"
+                        class="btn btn-light"
+                        value="search"
+                      />
+                    </div>
+                  </div>
                 </div>
-                
-                
               </form>
             </div>
             <div class="col-2 positioning-col">
-              <button id="position-button" type="button" class="btn btn-info">Postioning</button>
+              <button id="position-button" type="button" class="btn btn-info">
+                Postioning
+              </button>
             </div>
             <div class="col-4">
               <div id="city-name">Toronto</div>
@@ -53,121 +64,123 @@
               <h4 id="current-time">Saturday 20:47</h4>
             </div>
             <div class="col-4">
-              <h4 ><img  id="weather-icon" src=" http://openweathermap.org/img/wn/01d@2x.png" width=40> <span id="weather-description">Sunny</span></h4>
+              <h4>
+                <img
+                  id="weather-icon"
+                  src=" http://openweathermap.org/img/wn/01d@2x.png"
+                  width="40"
+                />
+                <span id="weather-description">Sunny</span>
+              </h4>
             </div>
             <div class="col-3">
               <h4>
-                <i class="fas fa-thermometer-three-quarters"></i> <span  id="temperature-range">7&deg;~18&deg;</span>
+                <i class="fas fa-thermometer-three-quarters"></i>
+                <span id="temperature-range">7&deg;~18&deg;</span>
               </h4>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-1">
-            </div>
+            <div class="col-1"></div>
             <div class="col-6">
               <div class="large">
                 <span class="temperature">17</span>
-                <span class="unit">°C |<a href="#" id="fahrenheit-switch">°F</a></span>
+                <span class="unit"
+                  >°C |<a href="#" id="fahrenheit-switch">°F</a></span
+                >
               </div>
             </div>
             <div class="col-5">
               <br />
-              <h2><i class="fas fa-wind"></i> <span  id="wind-speed">4.8km/h</span></h2>
-              <h2><i class="fas fa-tint" ></i> <span id="humidity">65%</span></h2>
+              <h2>
+                <i class="fas fa-wind"></i> <span id="wind-speed">4.8km/h</span>
+              </h2>
+              <h2>
+                <i class="fas fa-tint"></i> <span id="humidity">65%</span>
+              </h2>
             </div>
           </div>
-        
 
-        <div class="row">
-          <div class="col-1">
-
-          </div>
-          <div class="col-2">
-            <h5>
-              <div id="forecast-first-day">
-                Mon
-              </div>
-              <div>
-                <img  id="icon-day1" src=" http://openweathermap.org/img/wn/01d@2x.png" width=30>
-              </div>
-              <div id="temp-range-day1">
-                9&deg;-18&deg;
-              </div>
-            </h5>
-          </div>
-          <div class="col-2">
-            <h5>
-              <div id="forecast-second-day">
-                Tue
-              </div>
-              <div>
-                <img  id="icon-day2" src=" http://openweathermap.org/img/wn/03d@2x.png" width=30>
-              </div>
-              <div id="temp-range-day2">
-                12&deg;-19&deg;
-              </div>
-            </h5>
-          </div>
-          <div class="col-2">
-            <h5>
-              <div id="forecast-third-day">
-                Wed
-              </div>
-              <div>
-                <img  id="icon-day3" src=" http://openweathermap.org/img/wn/03d@2x.png" width=30>
-              </div>
-              <div id="temp-range-day3">
-                4&deg;-18&deg;
-              </div>
-            </h5>
-          </div>
-          <div class="col-2">
-            <h5>
-              <div id="forecast-fourth-day">
-                Thu
-              </div>
-              <div>
-                <img  id="icon-day4" src=" http://openweathermap.org/img/wn/02d@2x.png" width=30>
-              </div>
-              <div id="temp-range-day4">
-                2&deg;-9&deg;
-              </div>
-            </h5>
-          </div>
-          <div class="col-2">
-            <h5>
-              <div id="forecast-fifth-day">
-                Fri
-              </div>
-              <div>
-                <img  id="icon-day5" src=" http://openweathermap.org/img/wn/03d@2x.png" width=30>
-              </div>
-              <div id="temp-range-day5">
-                1&deg;-10&deg;
-              </div>
-            </h5>
+          <div class="row">
+            <div class="col-1"></div>
+            <div class="col-2">
+              <h5>
+                <div id="forecast-first-day">Mon</div>
+                <div>
+                  <img
+                    id="icon-day1"
+                    src=" http://openweathermap.org/img/wn/01d@2x.png"
+                    width="30"
+                  />
+                </div>
+                <div id="temp-range-day1">9&deg;-18&deg;</div>
+              </h5>
+            </div>
+            <div class="col-2">
+              <h5>
+                <div id="forecast-second-day">Tue</div>
+                <div>
+                  <img
+                    id="icon-day2"
+                    src=" http://openweathermap.org/img/wn/03d@2x.png"
+                    width="30"
+                  />
+                </div>
+                <div id="temp-range-day2">12&deg;-19&deg;</div>
+              </h5>
+            </div>
+            <div class="col-2">
+              <h5>
+                <div id="forecast-third-day">Wed</div>
+                <div>
+                  <img
+                    id="icon-day3"
+                    src=" http://openweathermap.org/img/wn/03d@2x.png"
+                    width="30"
+                  />
+                </div>
+                <div id="temp-range-day3">4&deg;-18&deg;</div>
+              </h5>
+            </div>
+            <div class="col-2">
+              <h5>
+                <div id="forecast-fourth-day">Thu</div>
+                <div>
+                  <img
+                    id="icon-day4"
+                    src=" http://openweathermap.org/img/wn/02d@2x.png"
+                    width="30"
+                  />
+                </div>
+                <div id="temp-range-day4">2&deg;-9&deg;</div>
+              </h5>
+            </div>
+            <div class="col-2">
+              <h5>
+                <div id="forecast-fifth-day">Fri</div>
+                <div>
+                  <img
+                    id="icon-day5"
+                    src=" http://openweathermap.org/img/wn/03d@2x.png"
+                    width="30"
+                  />
+                </div>
+                <div id="temp-range-day5">1&deg;-10&deg;</div>
+              </h5>
+            </div>
           </div>
         </div>
+        <div class="footer">
+          <small
+            ><a href="https://github.com/bettyYHchen/weather-app"
+              >Open-souce code
+            </a>
+            by Betty Chen</small
+          >
+        </div>
       </div>
-       </div>
-    <div class="footer">
-      <p><a href="https://github.com/bettyYHchen/weather-app">Open-souce code</a> by Betty Chen</p>
     </div>
-    </div>
-      
-    
-
-
-
-      
-
-      
-
-      
-
-    
-   
 
     <script src="src/index.js"></script>
   </body>
