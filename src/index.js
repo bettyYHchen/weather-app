@@ -1,4 +1,5 @@
 
+document.addEventListener("DOMContentLoaded", updateCurrentLocation, false);
 
 
 let currentTime = document.querySelector("#current-time");
@@ -44,13 +45,11 @@ function changeTime(offset) {
 
     // create Date object for current location
     let d = new Date();
-    console.log(d);
    
     // convert to msec
     // add local time zone offset
     // get UTC time in msec
     let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-    console.log(utc);
    
     // create new Date object for different city
     // using supplied offset
@@ -62,17 +61,33 @@ function changeTime(offset) {
 
 
 
-//Add a link to convert the temperature from Celsius to Fahrenheit. When clicking on it, it should convert the temperature to Fahrenheit.
+
+//Add a link to convert the temperature from celcius to Fahrenheit. When clicking on it, it should convert the temperature to Fahrenheit.
 let fahrenheitSwitch = document.querySelector("#fahrenheit-switch");
+let celciusRecord = null; // this will get updated when api called
 fahrenheitSwitch.addEventListener("click", function (event) {
     event.preventDefault();
+    // making the F switch solid and C switch not solid
+    fahrenheitSwitch.classList.add("active");
+    celciusSwitch.classList.remove("active");
     let temperature = document.querySelector(".temperature");
-    temperature.innerHTML = convert2Fahrenheit(parseInt(temperature.innerHTML));
+    temperature.innerHTML = convert2Fahrenheit(celciusRecord);
 })
 
 function convert2Fahrenheit(degree) {
     return Math.round(((degree * 9) / 5) + 32);
 }
+
+//Add a link to convert the temperature from Fahrenheit to celcius. 
+let celciusSwitch = document.querySelector("#celcius-switch");
+celciusSwitch.addEventListener("click", function (event) { 
+    event.preventDefault();
+    // making the C switch solid and F switch not solid
+    celciusSwitch.classList.add("active");
+    fahrenheitSwitch.classList.remove("active");
+    let temperature = document.querySelector(".temperature");
+    temperature.innerHTML = celciusRecord;
+})
 
 
 
@@ -85,7 +100,11 @@ function convert2Fahrenheit(degree) {
 
 function formatString(inputString) { 
     // formate inputString to be a string with all lowercase except the first letter to be uppercase
-    return inputString.slice(0, 1).toUpperCase() + inputString.slice(1).toLowerCase();
+    let inputStringList = inputString.split(" ");
+    for (let i = 0; i < inputStringList.length; i++) {
+        inputStringList[i] = inputStringList[i].slice(0, 1).toUpperCase() + inputStringList[i].slice(1).toLowerCase();
+    }
+    return inputStringList.join(" ");
 }
 
 function updateCity(event) {
@@ -101,6 +120,7 @@ function updateCity(event) {
         //update temperature
         let temperature = document.querySelector(".temperature");
         temperature.innerHTML = Math.round(response.data.main.temp);
+        celciusRecord = Math.round(response.data.main.temp);
         //update wind speed
         let windSpeed = document.querySelector("#wind-speed");
         windSpeed.innerHTML = `${response.data.wind.speed}km/h`;
@@ -112,7 +132,8 @@ function updateCity(event) {
         temperatureRange.innerHTML = `${Math.round(response.data.main.temp_min)}°~${Math.round(response.data.main.temp_max)}°`;
         //update description
         let weatherIcon = document.querySelector("#weather-icon");
-        weatherIcon.src = `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
+        weatherIcon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+        weatherIcon.setAttribute("alt", response.data.weather[0].main);
         let weatherDescription = document.querySelector("#weather-description");
         weatherDescription.innerHTML = response.data.weather[0].main;
         //update time
@@ -130,7 +151,8 @@ function updateCity(event) {
         var i;
         for (i = 0; i < 5; i++) { 
             let forecastIcon = document.querySelector(`#icon-day${i + 1}`);
-            forecastIcon.src = `http://openweathermap.org/img/wn/${response.data.daily[i+1].weather[0].icon}@2x.png`;
+            forecastIcon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.daily[i + 1].weather[0].icon}@2x.png`);
+            forecastIcon.setAttribute("alt", response.data.daily[i + 1].weather[0].main);
             let forecastDayRange = document.querySelector(`#temp-range-day${i + 1}`);
             forecastDayRange.innerHTML = `${Math.round(response.data.daily[i+1].temp.min)}°~${Math.round(response.data.daily[i+1].temp.max)}°`;
         }
@@ -155,7 +177,6 @@ function updateCurrentLocation(event) {
     event.preventDefault();
     navigator.geolocation.getCurrentPosition(function (location) {
     let apiKey = "73eee4c0adad9e9175d692ed1fe44b49";
-        console.log(location);
     let lat = location.coords.latitude;
     let lon = location.coords.longitude;
     let units = "metric";
@@ -164,6 +185,7 @@ function updateCurrentLocation(event) {
         //update temperature
         let temperature = document.querySelector(".temperature");
         temperature.innerHTML = Math.round(response.data.main.temp);
+        celciusRecord = Math.round(response.data.main.temp);
         //update wind speed
         let windSpeed = document.querySelector("#wind-speed");
         windSpeed.innerHTML = `${response.data.wind.speed}km/h`;
@@ -175,7 +197,8 @@ function updateCurrentLocation(event) {
         temperatureRange.innerHTML = `${Math.round(response.data.main.temp_min)}°~${Math.round(response.data.main.temp_max)}°`;
         //update description
         let weatherIcon = document.querySelector("#weather-icon");
-        weatherIcon.src = `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
+        weatherIcon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+        weatherIcon.setAttribute("alt", response.data.weather[0].main);
         let weatherDescription = document.querySelector("#weather-description");
         weatherDescription.innerHTML = response.data.weather[0].main;
         //update time
@@ -196,7 +219,8 @@ function updateCurrentLocation(event) {
             var i;
             for (i = 0; i < 5; i++) {
                 let forecastIcon = document.querySelector(`#icon-day${i + 1}`);
-                forecastIcon.src = `http://openweathermap.org/img/wn/${response.data.daily[i + 1].weather[0].icon}@2x.png`;
+                forecastIcon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.daily[i + 1].weather[0].icon}@2x.png`);
+                forecastIcon.setAttribute("alt", response.data.daily[i + 1].weather[0].main);
                 let forecastDayRange = document.querySelector(`#temp-range-day${i + 1}`);
                 forecastDayRange.innerHTML = `${Math.round(response.data.daily[i + 1].temp.min)}°~${Math.round(response.data.daily[i + 1].temp.max)}°`;
             }

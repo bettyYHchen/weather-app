@@ -3,6 +3,11 @@
   font-weight: bolder;
   color: #898b8a;
   text-align: center;
+  text-transform: capitalize;
+}
+
+#weather-description {
+  text-transform: capitalize;
 }
 
 #current-time {
@@ -72,4 +77,13 @@ h5 {
 }
 .positioning-col {
   padding-left: 0px;
+}
+
+.unit .active {
+  color: #4e89ae;
+  cursor: default;
+}
+
+.unit .active:hover {
+  text-decoration: none;
 }
