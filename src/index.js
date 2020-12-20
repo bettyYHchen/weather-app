@@ -65,13 +65,26 @@ function changeTime(offset) {
 //Add a link to convert the temperature from celcius to Fahrenheit. When clicking on it, it should convert the temperature to Fahrenheit.
 let fahrenheitSwitch = document.querySelector("#fahrenheit-switch");
 let celciusRecord = null; // this will get updated when api called
+let celciusRangeRecord = Array(2).fill(null);
+let celciusMinRecord = Array(5).fill(null);
+let celciusMaxRecord = Array(5).fill(null);
 fahrenheitSwitch.addEventListener("click", function (event) {
     event.preventDefault();
     // making the F switch solid and C switch not solid
     fahrenheitSwitch.classList.add("active");
     celciusSwitch.classList.remove("active");
+    // convert the display temperature
     let temperature = document.querySelector(".temperature");
     temperature.innerHTML = convert2Fahrenheit(celciusRecord);
+    // convert the temperature range
+    let temperatureRange = document.querySelector("#temperature-range");
+    temperatureRange.innerHTML = `${convert2Fahrenheit(celciusRangeRecord[0])}°~${convert2Fahrenheit(celciusRangeRecord[1])}°`;
+    // convert the forcast
+    var i;
+    for (i = 0; i < 5; i++) {
+        let forcastRange = document.querySelector(`#temp-range-day${i + 1}`);
+        forcastRange.innerHTML = `${convert2Fahrenheit(celciusMinRecord[i])}°~${convert2Fahrenheit(celciusMaxRecord[i])}°`;
+    }
 })
 
 function convert2Fahrenheit(degree) {
@@ -85,8 +98,18 @@ celciusSwitch.addEventListener("click", function (event) {
     // making the C switch solid and F switch not solid
     celciusSwitch.classList.add("active");
     fahrenheitSwitch.classList.remove("active");
+    // convert the display temperature
     let temperature = document.querySelector(".temperature");
     temperature.innerHTML = celciusRecord;
+    // convert the temperature range
+    let temperatureRange = document.querySelector("#temperature-range");
+    temperatureRange.innerHTML = `${celciusRangeRecord[0]}°~${celciusRangeRecord[1]}°`;
+    // convert the forcast
+    var i;
+    for (i = 0; i < 5; i++) {
+        let forcastRange = document.querySelector(`#temp-range-day${i + 1}`);
+        forcastRange.innerHTML = `${celciusMinRecord[i]}°~${celciusMaxRecord[i]}°`;
+    }
 })
 
 
@@ -110,13 +133,14 @@ function formatString(inputString) {
 function updateCity(event) {
     event.preventDefault();
     let cityInput = document.querySelector("#city-input");
+    if (cityInput.value.length === 0) { alert("You must type a city name to search!")}
     let city = formatString(cityInput.value);
     let apiKey = "73eee4c0adad9e9175d692ed1fe44b49";
     let units = "metric";
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
     
 
-    axios.get(apiUrl).then(function (response) { 
+    axios.get(apiUrl).then(function (response) {
         //update temperature
         let temperature = document.querySelector(".temperature");
         temperature.innerHTML = Math.round(response.data.main.temp);
@@ -130,6 +154,7 @@ function updateCity(event) {
         //update temperature range
         let temperatureRange = document.querySelector("#temperature-range");
         temperatureRange.innerHTML = `${Math.round(response.data.main.temp_min)}°~${Math.round(response.data.main.temp_max)}°`;
+        celciusRangeRecord = [Math.round(response.data.main.temp_min), Math.round(response.data.main.temp_max)];
         //update description
         let weatherIcon = document.querySelector("#weather-icon");
         weatherIcon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
@@ -146,19 +171,26 @@ function updateCity(event) {
         let lat = response.data.coord.lat;
         let lon = response.data.coord.lon;
         let apiForeCastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${units}&exclude=current,minutely,hourly,alerts&appid=${apiKey}`;
-        axios.get(apiForeCastUrl).then(function (response) { 
+        axios.get(apiForeCastUrl).then(function (response) {
 
-        var i;
-        for (i = 0; i < 5; i++) { 
-            let forecastIcon = document.querySelector(`#icon-day${i + 1}`);
-            forecastIcon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.daily[i + 1].weather[0].icon}@2x.png`);
-            forecastIcon.setAttribute("alt", response.data.daily[i + 1].weather[0].main);
-            let forecastDayRange = document.querySelector(`#temp-range-day${i + 1}`);
-            forecastDayRange.innerHTML = `${Math.round(response.data.daily[i+1].temp.min)}°~${Math.round(response.data.daily[i+1].temp.max)}°`;
-        }
-        })
+            var i;
+            for (i = 0; i < 5; i++) {
+                let forecastIcon = document.querySelector(`#icon-day${i + 1}`);
+                forecastIcon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.daily[i + 1].weather[0].icon}@2x.png`);
+                forecastIcon.setAttribute("alt", response.data.daily[i + 1].weather[0].main);
+                let forecastDayRange = document.querySelector(`#temp-range-day${i + 1}`);
+                forecastDayRange.innerHTML = `${Math.round(response.data.daily[i + 1].temp.min)}°~${Math.round(response.data.daily[i + 1].temp.max)}°`;
+                celciusMinRecord[i] = Math.round(response.data.daily[i + 1].temp.min);
+                celciusMaxRecord[i] = Math.round(response.data.daily[i + 1].temp.max);
+            }
+        });
         
-    })
+    }).catch(function (error) {
+        // handle error
+        if (error.response.status === 404) {
+            alert("City does not exsit. Please Re-enter!")
+        }
+    });
 
     
 
@@ -195,6 +227,7 @@ function updateCurrentLocation(event) {
         //update temperature range
         let temperatureRange = document.querySelector("#temperature-range");
         temperatureRange.innerHTML = `${Math.round(response.data.main.temp_min)}°~${Math.round(response.data.main.temp_max)}°`;
+        celciusRangeRecord = [Math.round(response.data.main.temp_min), Math.round(response.data.main.temp_max)];
         //update description
         let weatherIcon = document.querySelector("#weather-icon");
         weatherIcon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
@@ -223,6 +256,8 @@ function updateCurrentLocation(event) {
                 forecastIcon.setAttribute("alt", response.data.daily[i + 1].weather[0].main);
                 let forecastDayRange = document.querySelector(`#temp-range-day${i + 1}`);
                 forecastDayRange.innerHTML = `${Math.round(response.data.daily[i + 1].temp.min)}°~${Math.round(response.data.daily[i + 1].temp.max)}°`;
+                celciusMinRecord[i] = Math.round(response.data.daily[i + 1].temp.min);
+                celciusMaxRecord[i] = Math.round(response.data.daily[i + 1].temp.max);
             }
         });
     });
